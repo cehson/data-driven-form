@@ -16,6 +16,10 @@
                    id="email"
                     formControlName="email"
             >
+            <div *ngIf="!myForm.controls['email'].valid"
+                 class="alert alert-danger">
+                Email is required
+            </div>
         </div>
     </div>
 
@@ -32,13 +36,18 @@
         <label>
         </label>
     </div>
-    <div>
+    <div formArrayName="pero">
         <h3>Hobbies</h3>
-        <div class="form-group">
-            <input type="text"
-                   class="form-control">
+        <div class="form-group" *ngFor="let x of hobbies.controls; let i = index">
+
+            <input
+                    formControlName="{{i}}"
+                    type="text"
+                   class="form-control"
+            >
         </div>
     </div>
-    <button type="button" class="btn btn-default">Add Hobby</button>
-    <button type="submit" class="btn btn-primary">Submit</button>
+
+    <button type="button" class="btn btn-default" (click)="addNewHobbie()" >Add Hobby</button>
+    <button type="submit" class="btn btn-primary" [disabled]="!myForm.valid">Submit</button>
 </form>
